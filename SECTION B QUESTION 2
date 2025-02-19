@@ -1,0 +1,107 @@
+################### SECTION A #################
+
+SELECT year, SUM(revenue) AS total_revenue
+FROM movies
+GROUP BY year
+ORDER BY year;
+
+################### SECTION B #################
+
+SELECT language AS language_of_movie, COUNT(movie_name) AS movie_count
+FROM movies
+GROUP BY language
+ORDER BY movie_count DESC;
+
+
+################### SECTION C ###################
+
+SELECT genre, AVG(revenue) AS avg_revenue
+FROM movies
+GROUP BY genre
+ORDER BY avg_revenue DESC;
+
+################### SECTION D ###################
+
+SELECT language, AVG(revenue) AS avg_revenue
+FROM movies
+GROUP BY language
+ORDER BY avg_revenue DESC;
+
+################### SECTION E ###################
+
+SELECT language, movie_name
+FROM movies
+WHERE language IN (
+    SELECT language
+    FROM movies
+    GROUP BY language
+    HAVING COUNT(movie_name) >= 3
+)
+ORDER BY language;
+
+################### SECTION F ###################
+SELECT country, COUNT(movie_name) AS total_movies
+FROM movies
+GROUP BY country
+ORDER BY country DESC;
+
+################### SECTION G ###################
+SELECT genre, COUNT(movie_name) AS total_movies
+FROM movies
+GROUP BY genre
+ORDER BY total_movies DESC;
+
+
+################### SECTION I ##################       SECTION H CAUSE ITS THE SAME AS SECTION D!!!!!!
+SELECT year, revenue
+FROM movies
+WHERE year IN (
+    SELECT year
+    FROM movies
+    GROUP BY year
+    HAVING SUM(revenue) >= 1000
+)
+ORDER BY year;
+
+################### SECTION J #####################
+SELECT language, COUNT(movie_name) AS movies_
+FROM movies
+GROUP BY language
+ORDER BY movies_ ASC
+
+
+################### SECTION K #####################
+SELECT genre, COUNT(movie_name) AS total_movies
+FROM movies
+GROUP BY genre
+HAVING COUNT(movie_name) >= 2
+ORDER BY total_movies DESC;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
