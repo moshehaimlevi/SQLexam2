@@ -1,0 +1,76 @@
+############################################################################ SECTION A:
+SELECT tourists.first_name AS first_name, tourists.last_name AS last_name,
+       tours.tour_name AS name_of_tour
+FROM tourists
+FULL OUTER JOIN tours
+ON tourists.tour_id = tours.id;
+
+############################################################################ SECTION B:
+SELECT tourists.first_name AS first_name, tourists.last_name AS last_name,
+       tours.tour_name AS name_of_tour
+FROM tourists
+LEFT JOIN tours ON tourists.tour_id = tours.id
+WHERE tours.id is NULL
+
+DELETE FROM tourists
+WHERE tourists.tour_id 
+NOT IN (SELECT id FROM tours WHERE id IS NOT NULL);
+
+############################################################################ SECTION C:
+SELECT tours.id, tours.tour_name, tours.start_date, tours.end_date
+FROM tours
+LEFT JOIN tourists ON tours.id = tourists.tour_id
+WHERE tourists.tour_id IS NULL;
+
+UPDATE tours
+SET start_date = DATE(start_date, '+1 year'),
+    end_date = DATE(end_date, '+1 year')
+WHERE id IN (
+    SELECT tours.id
+    FROM tours
+    LEFT JOIN tourists ON tours.id = tourists.tour_id
+    WHERE tourists.tour_id IS NULL
+)
+AND start_date < '2026';
+
+############################################################################ SECTION D:
+SELECT COUNT(*) AS no_tourists_count
+FROM tours
+LEFT JOIN tourists ON tours.id = tourists.tour_id
+WHERE tourists.tour_id IS NULL;
+
+############################################################################ SECTION E:
+SELECT tourists.*, tours.start_date, tours.end_date
+FROM tourists
+LEFT JOIN tours ON tourists.tour_id = tours.id;
+
+############################################################################ SECTION F:
+SELECT tourists.country_id, tourists.first_name, tourists.last_name, 
+countries.*
+FROM tourists
+INNER JOIN countries ON tourists.country_id = countries.id;
+
+############################################################################ SECTION G:
+SELECT tourists.first_name, tourists.last_name,
+       tours.*
+FROM tourists
+INNER JOIN tours ON tourists.tour_id = tours.id
+
+############################################################################ SECTION H:
+SELECT tourists.*, tours.*            #all tourists with all the tours#
+FROM tourists
+LEFT JOIN tours ON tourists.tour_id = tours.id;
+
+SELECT tours.*, tourists.*        #all tours with all the tourists#
+FROM tours
+LEFT JOIN tourists ON tourists.tour_id = tours.id;
+
+
+
+
+
+
+
+
+
+
