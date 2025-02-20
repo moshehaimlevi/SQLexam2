@@ -1,0 +1,11 @@
+CREATE OR REPLACE FUNCTION get_revenue_per_year()
+RETURNS TABLE(year INTEGER, total_revenue REAL) AS
+$$
+BEGIN
+    RETURN QUERY
+    SELECT year, SUM(revenue)
+    FROM movies
+    GROUP BY year
+    ORDER BY year;
+END;
+$$ LANGUAGE plpgsql;
